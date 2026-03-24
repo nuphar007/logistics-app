@@ -94,7 +94,7 @@ export default function GlobeMapInner() {
           backgroundColor="rgba(0,0,0,0)"
           atmosphereColor="#00d4ff"
           atmosphereAltitude={0.18}
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+          globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
           // Arcs (routes)
           arcsData={arcData}
           arcStartLat={(d) => (d as GlobeArc).startLat}
