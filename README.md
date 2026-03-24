@@ -6,7 +6,9 @@ A modern, futuristic logistics fleet management dashboard built with Next.js 14,
 
 ## Preview
 
-> Dark mode interface with interactive 3D globe showing live fleet routes, neon orange arcs, glassmorphism panels, and real-time telemetry.
+![FleetOS zoomed to Singapore](./singapore-zoom.png)
+
+> Dark mode interface with interactive 3D globe showing live fleet routes, neon orange arcs, glassmorphism panels, and real-time telemetry. Click the yellow **📍 Singapore** button to zoom the globe to Singapore.
 
 ---
 
