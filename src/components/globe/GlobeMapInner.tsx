@@ -99,10 +99,10 @@ export default function GlobeMapInner() {
         onClick={zoomToSingapore}
         className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95"
         style={{
-          background: "#facc15",
+          background: "linear-gradient(135deg, #ef4444 50%, #ffffff 50%)",
           color: "#0a0b0e",
-          boxShadow: "0 0 14px rgba(250,204,21,0.6), 0 2px 8px rgba(0,0,0,0.4)",
-          border: "1px solid rgba(250,204,21,0.4)",
+          boxShadow: "0 0 14px rgba(239,68,68,0.6), 0 2px 8px rgba(0,0,0,0.4)",
+          border: "1px solid rgba(239,68,68,0.4)",
         }}
       >
         <span style={{ fontSize: "10px" }}>📍</span> Singapore
