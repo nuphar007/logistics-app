@@ -84,8 +84,29 @@ export default function GlobeMapInner() {
   const arcLabel = useCallback((d: object) => `Route: ${(d as GlobeArc).status}`, []);
   const pointLabel = useCallback((d: object) => (d as GlobePoint).city ?? "", []);
 
+  const zoomToSingapore = useCallback(() => {
+    try {
+      globeEl.current?.pointOfView({ lat: 1.3521, lng: 103.8198, altitude: 1.0 }, 1200);
+    } catch {
+      // ignore
+    }
+  }, []);
+
   return (
-    <div ref={containerRef} className="w-full h-full">
+    <div ref={containerRef} className="w-full h-full relative">
+      {/* Zoom to Singapore button */}
+      <button
+        onClick={zoomToSingapore}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95"
+        style={{
+          background: "#facc15",
+          color: "#0a0b0e",
+          boxShadow: "0 0 14px rgba(250,204,21,0.6), 0 2px 8px rgba(0,0,0,0.4)",
+          border: "1px solid rgba(250,204,21,0.4)",
+        }}
+      >
+        <span style={{ fontSize: "10px" }}>📍</span> Singapore
+      </button>
       {dimensions.w > 0 && (
         <Globe
           ref={globeEl}
