@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import { ArrowRight, Clock, MapPin } from "lucide-react";
 import { GlowBadge } from "@/components/ui/GlowBadge";
 import { formatEta } from "@/lib/utils";
@@ -17,18 +18,58 @@ const statusBadgeColor = {
 export function RouteDetails({ route }: RouteDetailsProps) {
   if (!route) {
     return (
-      <div className="glass-panel p-4 flex flex-col items-center justify-center gap-2" style={{ minHeight: "120px" }}>
-        <MapPin size={20} className="text-white/20" />
-        <p className="text-xs text-white/30">Select a vehicle to view route</p>
+      <div
+        className="p-4 flex flex-col items-center justify-center gap-2"
+        style={{
+          minHeight: "112px",
+          background: "linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: "12px",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        <MapPin size={18} style={{ color: "rgba(255,255,255,0.15)" }} />
+        <p
+          style={{
+            color: "rgba(255,255,255,0.2)",
+            fontFamily: "var(--font-mono), monospace",
+            fontSize: "0.6rem",
+            letterSpacing: "0.05em",
+          }}
+        >
+          SELECT VEHICLE TO VIEW ROUTE
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="glass-panel p-4 flex flex-col gap-3">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="p-4 flex flex-col gap-3 relative overflow-hidden"
+      style={{
+        background: "linear-gradient(145deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.018) 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: "12px",
+        backdropFilter: "blur(20px)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
+      }}
+    >
+      {/* Top accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255,107,53,0.6), transparent)" }}
+      />
+
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-widest text-white/40">{route.id.toUpperCase()}</span>
+        <span
+          className="label-xs"
+          style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
+        >
+          {route.id.toUpperCase()}
+        </span>
         <GlowBadge
           label={route.status.replace("-", " ")}
           color={statusBadgeColor[route.status]}
@@ -39,29 +80,40 @@ export function RouteDetails({ route }: RouteDetailsProps) {
       {/* Origin → Destination */}
       <div className="flex items-center gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-white/40">From</p>
-          <p className="text-sm font-semibold text-white/90 truncate">{route.origin.city}</p>
+          <p style={{ color: "rgba(255,255,255,0.28)", fontFamily: "var(--font-mono), monospace", fontSize: "0.55rem", letterSpacing: "0.08em" }}>FROM</p>
+          <p className="text-xs font-semibold truncate" style={{ color: "rgba(255,255,255,0.85)", fontFamily: "var(--font-orbitron), sans-serif", fontSize: "0.65rem" }}>
+            {route.origin.city}
+          </p>
         </div>
-        <ArrowRight size={14} style={{ color: "#ff6b35", flexShrink: 0 }} />
+        <ArrowRight size={13} style={{ color: "#ff6b35", flexShrink: 0 }} />
         <div className="flex-1 min-w-0 text-right">
-          <p className="text-xs text-white/40">To</p>
-          <p className="text-sm font-semibold text-white/90 truncate">{route.destination.city}</p>
+          <p style={{ color: "rgba(255,255,255,0.28)", fontFamily: "var(--font-mono), monospace", fontSize: "0.55rem", letterSpacing: "0.08em" }}>TO</p>
+          <p className="text-xs font-semibold truncate" style={{ color: "rgba(255,255,255,0.85)", fontFamily: "var(--font-orbitron), sans-serif", fontSize: "0.65rem" }}>
+            {route.destination.city}
+          </p>
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="flex flex-col gap-1">
+      {/* Progress */}
+      <div className="flex flex-col gap-1.5">
         <div className="flex justify-between items-center">
-          <span className="text-xs text-white/40">Progress</span>
-          <span className="text-xs font-semibold" style={{ color: "#ff6b35" }}>{route.progress}%</span>
+          <span style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono), monospace", fontSize: "0.58rem" }}>PROGRESS</span>
+          <span
+            className="font-bold"
+            style={{ color: "#ff6b35", fontFamily: "var(--font-mono), monospace", fontSize: "0.65rem" }}
+          >
+            {route.progress}%
+          </span>
         </div>
-        <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full transition-all duration-700"
+        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.07)" }}>
+          <motion.div
+            className="h-full rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${route.progress}%` }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              width: `${route.progress}%`,
-              background: "linear-gradient(90deg, #ff6b35, #ff8c00)",
-              boxShadow: "0 0 8px rgba(255,107,53,0.6)",
+              background: "linear-gradient(90deg, #ff6b35, #ffcc00)",
+              boxShadow: "0 0 10px rgba(255,107,53,0.7)",
             }}
           />
         </div>
@@ -69,13 +121,16 @@ export function RouteDetails({ route }: RouteDetailsProps) {
 
       {/* Meta */}
       <div className="flex gap-3">
-        <div className="flex items-center gap-1.5">
-          <Clock size={11} className="text-white/30" />
-          <span className="text-xs text-white/50">ETA {formatEta(route.eta)}</span>
+        <div className="flex items-center gap-1">
+          <Clock size={10} style={{ color: "rgba(255,255,255,0.25)" }} />
+          <span style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono), monospace", fontSize: "0.58rem" }}>
+            ETA {formatEta(route.eta)}
+          </span>
         </div>
-        <span className="text-xs text-white/30">{route.distance.toLocaleString()} km</span>
-        <span className="text-xs text-white/30">{route.vehicleIds.length} vehicle{route.vehicleIds.length !== 1 ? "s" : ""}</span>
+        <span style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono), monospace", fontSize: "0.58rem" }}>
+          {route.distance.toLocaleString()} km
+        </span>
       </div>
-    </div>
+    </motion.div>
   );
 }

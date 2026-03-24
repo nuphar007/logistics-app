@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Orbitron, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 
-const inter = Inter({
+const orbitron = Orbitron({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-orbitron",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -21,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} antialiased bg-bg-base text-white overflow-hidden`}>
+      <body className={`${orbitron.variable} ${spaceMono.variable} antialiased overflow-hidden`}>
         <DashboardLayout>
           {children}
         </DashboardLayout>
